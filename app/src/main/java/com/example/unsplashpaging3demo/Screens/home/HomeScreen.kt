@@ -2,9 +2,11 @@ package com.example.unsplashpaging3demo.Screens.home
 
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -23,19 +25,19 @@ fun HomeScreen(
 
     val getAllImages = homeViewModel.getAllImages.collectAsLazyPagingItems()
 
-    Scaffold(topBar = {
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        topBar = {
         HomeTopBar {
             navHostController.navigate(Screen.Search.route)
         }
-    },
-        content = {
-            it.calculateStartPadding(layoutDirection = LayoutDirection.Ltr)
-            it.calculateEndPadding(layoutDirection = LayoutDirection.Ltr)
-            it.calculateTopPadding()
-            it.calculateBottomPadding()
-            ListContent(items = getAllImages)
-        }
+    }){
+        it.calculateStartPadding(layoutDirection = LayoutDirection.Ltr)
+        it.calculateEndPadding(layoutDirection = LayoutDirection.Ltr)
+        it.calculateTopPadding()
+        it.calculateBottomPadding()
 
-    )
+        ListContent(items = getAllImages)
+    }
 
 }
